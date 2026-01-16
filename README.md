@@ -31,21 +31,28 @@ Example/              # Пример интеграции
 
 ## Пример кода
 ```gdscript
-# Создание компонентов
-var unit = Unit.new()
-var state_machine = StateMachine.new()
-var player_input = PlayerInput.new()
+class_name ExamplePlayer extends CharacterBody2D
 
-# Инициализация
+var unit: Unit
+var state_machine: StateMachine
+var player_input: PlayerInput
+var label: Label
+var ctx: StateContext
+
+func _ready() -> void:
+unit = Unit.new()
+state_machine = StateMachine.new()
 state_machine.setup(unit, IdleState.new())
+player_input = PlayerInput.new()
 add_child(player_input)
+ctx = StateContext.new(unit)
+label = null
 
 func _physics_process(delta: float) -> void:
 player_input.update_input()
 unit.move(player_input.move_direction)
 unit.velocity.y += unit.gravity * delta
 
-var ctx = StateContext.new(unit)
 ctx.on_floor = is_on_floor()
 ctx.can_jump = player_input.jump_pressed and ctx.on_floor
 
@@ -56,6 +63,7 @@ label.text = state_machine.get_current_state_label()
 
 velocity = unit.velocity
 move_and_slide()
+unit.velocity = velocity
 ```
 
 ## Подключение Label (опционально)
