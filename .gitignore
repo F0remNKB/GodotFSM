@@ -1,0 +1,16 @@
+# Godot
+.godot/
+.import/
+*.import
+*.uid
+*.tmp
+*.log
+
+
+# OS
+.DS_Store
+Thumbs.db
+*.sh
+
+# Editor
+.vscode/
