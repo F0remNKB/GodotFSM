@@ -41,26 +41,29 @@ state_machine.setup(unit, IdleState.new())
 add_child(player_input)
 
 func _physics_process(delta: float) -> void:
-    player_input.update_input()
-    unit.move(player_input.move_direction)
-    unit.velocity.y += unit.gravity * delta
+player_input.update_input()
+unit.move(player_input.move_direction)
+unit.velocity.y += unit.gravity * delta
 
-    var ctx = StateContext.new(unit)
-    ctx.on_floor = is_on_floor()
-    ctx.can_jump = player_input.jump_pressed and ctx.on_floor
+var ctx = StateContext.new(unit)
+ctx.on_floor = is_on_floor()
+ctx.can_jump = player_input.jump_pressed and ctx.on_floor
 
-    state_machine.physics_update(ctx)
+state_machine.physics_update(ctx)
 
-    if label:
-        label.text = state_machine.get_current_state_label()
+if label:
+label.text = state_machine.get_current_state_label()
 
-    velocity = unit.velocity
-    move_and_slide()
+velocity = unit.velocity
+move_and_slide()
 ```
 
 ## Подключение Label (опционально)
 - Используй любой Label в сцене
 - Присвой ссылку в коде: `label = $Label`
+
+## О проекте
+Этот пример был выделен из рабочего игрового проекта с помощью GitHub Copilot, чтобы показать чистую реализацию FSM без лишних зависимостей.
 
 ## Лицензия
 MIT
