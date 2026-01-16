@@ -5,39 +5,26 @@ var unit: Unit
 var state_machine: StateMachine
 var player_input: PlayerInput
 var label: Label
+var ctx: StateContext
 
 func _ready() -> void:
 	unit = Unit.new()
 	state_machine = StateMachine.new()
-	state_machine.setup(unit, (IdleState.new() if is_on_floor() else JumpState.new()))
-	label = $Label
+	state_machine.setup(unit, IdleState.new())
 	player_input = PlayerInput.new()
 	add_child(player_input)
-	
-	# Подключение Label для отображения текущего состояния (опционально)
-	# label = Label3D.new()  или используй готовый Label из сцены
+	ctx = StateContext.new(unit)
+	label = $Label
 
-func _physics_process(_delta: float) -> void:
-	# Обновление ввода
+func _physics_process(delta: float) -> void:
 	player_input.update_input()
-	
-	# Обработка движения
 	unit.move(player_input.move_direction)
-	
-	# Гравитация
-	unit.velocity.y += unit.gravity * _delta
-	
-	# Обновление FSM
-	var ctx = StateContext.new(unit)
+	unit.velocity.y += unit.gravity * delta
 	ctx.on_floor = is_on_floor()
 	ctx.can_jump = player_input.jump_pressed and ctx.on_floor
-	
 	state_machine.physics_update(ctx)
-	
-	# Обновление Label с текущим состоянием (если подключен)
-
-	label.text = state_machine.get_current_state_label()
-	
-	# Применение скорости
+	if label:
+		label.text = state_machine.get_current_state_label()
 	velocity = unit.velocity
 	move_and_slide()
+	unit.velocity = velocity
