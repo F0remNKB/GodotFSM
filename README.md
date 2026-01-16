@@ -1,35 +1,35 @@
 ﻿# Godot FSM
 
-Пример минимальной FSM для Godot 4 с раздельными модулями: ядро FSM, базовый Unit, обработка ввода и готовая сцена-пример.
+A minimal FSM example for Godot 4 with separate modules: FSM core, base Unit, input handling, and a ready-to-use example scene.
 
-## Структура
+## Structure
 ```
-FSM/                  # Ядро FSM
-  state.gd            # Базовый класс состояния с get_state_label()
-  state_machine.gd    # Менеджер переходов с get_current_state_label()
-  state_context.gd    # Контекст для передачи данных в update()
+FSM/                  # FSM Core
+  state.gd            # Base state class with get_state_label()
+  state_machine.gd    # Transition manager with get_current_state_label()
+  state_context.gd    # Context for passing data to update()
 
-Unit/                 # Базовый класс данных юнита
+Unit/                 # Base unit data class
   unit.gd             # velocity, speed, jump_force, gravity
 
-Input/                # Обработка ввода
+Input/                # Input handling
   player_input.gd     # move_direction, jump_pressed, jump_held
 
-Example/              # Пример интеграции
-  example_player.gd   # CharacterBody2D + FSM + Label (опционально)
+Example/              # Integration example
+  example_player.gd   # CharacterBody2D + FSM + Label (optional)
   States/
-    idle_state.gd     # Покой
-    move_state.gd     # Движение
-    jump_state.gd     # Прыжок
+    idle_state.gd     # Idle
+    move_state.gd     # Movement
+    jump_state.gd     # Jump
 ```
 
-## Быстрый старт
-1) Скопируй нужные папки (обычно FSM + Unit + Input) в проект.
-2) Подключи свои действия ввода: `ui_left`, `ui_right`, `ui_accept` (или переименуй в player_input.gd).
-3) Создай узел CharacterBody2D и добавь примерный код из `Example/example_player.gd`.
-4) (Опционально) Добавь Label в сцену и присвой его полю `label` для отображения текущего состояния.
+## Quick Start
+1) Copy the required folders (usually FSM + Unit + Input) to your project.
+2) Set up your input actions: `ui_left`, `ui_right`, `ui_accept` (or rename them in player_input.gd).
+3) Create a CharacterBody2D node and add example code from `Example/example_player.gd`.
+4) (Optional) Add a Label to your scene and assign it to the `label` field to display the current state.
 
-## Пример кода
+## Example Code
 ```gdscript
 class_name ExamplePlayer extends CharacterBody2D
 
@@ -66,12 +66,12 @@ move_and_slide()
 unit.velocity = velocity
 ```
 
-## Подключение Label (опционально)
-- Используй любой Label в сцене
-- Присвой ссылку в коде: `label = $Label`
+## Label Setup (Optional)
+- Use any Label node in your scene
+- Assign it in code: `label = $Label`
 
-## О проекте
-Этот пример был выделен из рабочего игрового проекта с помощью GitHub Copilot, чтобы показать чистую реализацию FSM без лишних зависимостей.
+## About
+This example was extracted from a working game project with GitHub Copilot to demonstrate a clean FSM implementation without unnecessary dependencies.
 
-## Лицензия
+## License
 MIT
