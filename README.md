@@ -59,8 +59,8 @@ func _physics_process(delta: float) -> void:
 ```
 
 ## Подключение Label (опционально)
-- В сцене: CanvasLayer -> Label
-- В коде: `label = $CanvasLayer/Label`
+- Используй любой Label в сцене
+- Присвой ссылку в коде: `label = $Label`
 
 ## Лицензия
 MIT
