@@ -14,7 +14,7 @@ func _ready() -> void:
 	player_input = PlayerInput.new()
 	add_child(player_input)
 	ctx = StateContext.new(unit)
-	label = $Label
+	label = null
 
 func _physics_process(delta: float) -> void:
 	player_input.update_input()
